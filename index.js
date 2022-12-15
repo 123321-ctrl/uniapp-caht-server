@@ -5,6 +5,10 @@ var jwt = require('./utils/jwt')
 const app = express()
 const port = 3000
 
+var server = app.listen(8082)
+var io = require('socket.io').listen(server)
+require('./utils/socket')(io)
+
 app.all('*', function (req, res, next) {
     // 开启跨域
     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -64,4 +68,5 @@ app.use(function (err, req, res, next) {
     res.send(err.message)
 })
 
+// server.listen(3031)
 app.listen(port, () => console.log("3000 is listening"))
